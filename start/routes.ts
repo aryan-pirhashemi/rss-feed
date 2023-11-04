@@ -7,7 +7,6 @@ Route.get('/rsses', 'RssesController.view').as('rsses')
 Route.get('/rsses/create', 'RssesController.create').as('rss.create')
 Route.post('/rsses/create', 'RssesController.store').as('rss.store')
 
-
 Route.get('/news', 'ArticlesController.view').as('news.view')
 
 // Route.on('/news').render('news/view').as('news.view')
