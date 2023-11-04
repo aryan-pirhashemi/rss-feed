@@ -3,13 +3,14 @@ import Route from '@ioc:Adonis/Core/Route'
 Route.get('/', async ({ view }) => {
   return view.render('welcome')
 })
+Route.get('/rsses', 'RssesController.view').as('rsses')
+Route.get('/rsses/create', 'RssesController.create').as('rss.create')
+Route.post('/rsses/create', 'RssesController.store').as('rss.store')
+
 
 Route.get('/news', 'ArticlesController.view').as('news.view')
-Route.get('/news/create', 'ArticlesController.create').as('news.create')
 
 // Route.on('/news').render('news/view').as('news.view')
-
-Route.post('/news/create', 'ArticlesController.store').as('news.store')
 
 Route.patch('/news/:id?', ({ params }) => {
   return { params }

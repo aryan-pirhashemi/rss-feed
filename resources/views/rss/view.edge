@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My First Webpage</title>
+</head>
+<body>
+  <h1>Hello, World!</h1>
+  <p>This is a paragraph.</p>
+    @each(rss in rsses)
+        <h1>{{rss.title}}</h1>
+        <h1>{{rss.rssLink}}</h1>
+        <h1>{{rss.siteLink}}</h1>
+        <h1>{{rss.description}}</h1>
+        <img src="{{rss.image}}">
+    @endeach
+  
+</body>
+</html>
