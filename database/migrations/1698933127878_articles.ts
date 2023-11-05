@@ -11,7 +11,6 @@ export default class extends BaseSchema {
       table.dateTime('pub_date')
       table.string('content')
       table.string('contentSnippet')
-      
       table.string('image')
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

@@ -1,6 +1,8 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/naming-convention */
 import Database from '@ioc:Adonis/Lucid/Database'
-
+import RssSevices from '@ioc:Services/Rss';
+import { DateTime } from 'luxon'
 // import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 export default class RssesController {
@@ -12,9 +14,9 @@ export default class RssesController {
   //   contentSnippet: string,
   //   categories: Array<string>
   // }
-
   public async view({ view }) {
-    const rsses = await Database.from('rsses').select('*')
+    const rsses = await this.importData();
+    console.log(rsses)
     // return articles
     return view.render('rss/view', { rsses })
   }
@@ -23,17 +25,36 @@ export default class RssesController {
     return view.render('rss/create')
   }
   public async store({ response, request }) {
+    const newDate = DateTime.local().toISO()
     const { rssLink } = request.body()
-    const { title, siteLink, description, image } = await checkRss(rssLink)
-
-    var item = await Database.table('rsses').insert({
+    if(await this.rExists(rssLink)){
+        console.log(rssLink + " already exists in the database.")
+        return response.redirect().toRoute('rsses.view')
+    }
+    const info = await RssSevices.checkRss(rssLink)
+    console.log(info)
+    const { title, link, description, image } = info
+    await Database.table('rsses').insert({
       title,
       rssLink,
-      siteLink,
+      link,
       description,
-      image,
+      image
     })
 
-    return response.redirect().toRoute('rss.view')
+    return response.redirect().toRoute('rsses.view')
+  }
+  private async  rExists(rssLink){
+    const rsses = await this.importData()
+    for (let index = 0; index < rsses.length; index++) {
+        const rss = rsses[index];
+        if (rss.rssLink === rssLink){
+            return true
+        }
+    }
+    return false
+  }
+  private async importData(){
+    return await Database.from('rsses').select('*')
   }
 }

@@ -3,7 +3,7 @@ import Route from '@ioc:Adonis/Core/Route'
 Route.get('/', async ({ view }) => {
   return view.render('welcome')
 })
-Route.get('/rsses', 'RssesController.view').as('rsses')
+Route.get('/rsses', 'RssesController.view').as('rsses.view')
 Route.get('/rsses/create', 'RssesController.create').as('rss.create')
 Route.post('/rsses/create', 'RssesController.store').as('rss.store')
 

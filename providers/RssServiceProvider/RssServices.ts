@@ -2,7 +2,7 @@
 import Database from '@ioc:Adonis/Lucid/Database'
 import Parser from 'rss-parser'
 
-export class RssService {
+export default class RssService {
   private CORS_PROXY = 'https://cors-anywhere.herokuapp.com/'
   public async checkRss(rssLink) {
     const parser = new Parser()

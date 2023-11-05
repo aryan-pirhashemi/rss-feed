@@ -5,10 +5,10 @@ export default class extends BaseSchema {
 
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments()
+      table.increments('id')
       table.string('title').notNullable()
       table.string('rssLink').notNullable()
-      table.string('siteLink').notNullable()
+      table.string('siteLink')
       table.text('description')
       table.string('image')
 
