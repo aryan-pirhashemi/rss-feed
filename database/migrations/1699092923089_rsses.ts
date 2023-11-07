@@ -8,7 +8,7 @@ export default class extends BaseSchema {
       table.increments('id')
       table.string('title').notNullable()
       table.string('rssLink').notNullable()
-      table.string('siteLink')
+      table.string('link')
       table.text('description')
       table.string('image')
 

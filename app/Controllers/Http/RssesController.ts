@@ -36,11 +36,12 @@ export default class RssesController {
    * @param ctx - The context object.
    * @returns A redirection to the view page.
    */
-  public async store({ response, request: { body: { rssLink } }  }) {
+  public async store( { response, request  } ) {
     // Extract the 'rssLink' from the request body
-
+    const { rssLink } = request.body()
     if (await RssSevices.rExists(rssLink)) { 
         // Check if the RSS link already exists in the database
+        console.log("Link already exists.")
       return response.redirect().toRoute('rsses.view') 
         // Redirect to the view page if the RSS link already exists
     }

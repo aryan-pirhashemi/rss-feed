@@ -7,11 +7,13 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       table.string('title')
-      table.string('siteLink')
+      table.string('link')
       table.dateTime('pub_date')
       table.string('content')
       table.string('contentSnippet')
       table.string('image')
+      table.string('rssLink')
+      table.specificType('Categories', 'STRING[]').notNullable()
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */
