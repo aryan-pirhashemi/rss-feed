@@ -4,13 +4,21 @@ import RssSevices from '@ioc:Services/Rss'
 // import {schema} from
 
 export default class ArticlesController {
-  public async view({ view }) {
+  public async viewAll({ view }) {
+    await RssSevices.extractAllRssArticles()
+    setInterval(() => {
+      RssSevices.updateArticles()
+    }, 600000)
+
     const articles = await Database.from('articles').select('*')
     // return articles
     return view.render('news/view', { articles })
   }
-  public create({ view }) {
-    return view.render('news/create')
+  public async viewArticle({ view, request }) {
+    const { id } = request.body()
+    await Database.from('articles').select('*').where('articles.id', id)
+
+    return view.render('news/view')
   }
   public async store({ response, request }) {
     const { title, content, image, distinct } = request.body()

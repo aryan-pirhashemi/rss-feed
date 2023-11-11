@@ -1,18 +1,20 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/naming-convention */
 import RssSevices from '@ioc:Services/Rss';
+const Event = use('Event')
 
 export default class RssesController {
 
+  
   /**
    * Imports the rss list from the database and renders the view with them.
    * @param ctx - The context object.
    * @returns A render of the rss view.edge file.
    */
   public async view({ view }) {
-    await RssSevices.importRss();
     
-    const rsses = RssSevices.getRssList()
+    
+    const rsses = await RssSevices.importRss()
     return view.render('rss/view', { rsses })
   }
 
@@ -45,12 +47,14 @@ export default class RssesController {
       return response.redirect().toRoute('rsses.view') 
         // Redirect to the view page if the RSS link already exists
     }
-
-    await RssSevices.pushRss(rssLink) 
-
+    RssSevices.pushRss(rssLink)
     return response.redirect().toRoute('rsses.view') 
     // Redirect to the view page after storing the RSS feed
   }
 
 
+}
+
+function use(arg0: string) {
+  throw new Error('Function not implemented.');
 }
