@@ -1,14 +1,19 @@
 // import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Database from '@ioc:Adonis/Lucid/Database'
 import RssSevices from '@ioc:Services/Rss'
-// import {schema} from
+import Env from '@ioc:Adonis/Core/Env'
 
 export default class ArticlesController {
   public async viewAll({ view }) {
     await RssSevices.extractAllRssArticles()
-    setInterval(() => {
-      RssSevices.updateArticles()
-    }, 600000)
+    setInterval(
+      () => {
+        RssSevices.updateArticles()
+        console.log('updated')
+      },
+      // Env.get('UPDATE_TIME', 5) * 60000
+      10000
+    )
 
     const articles = await Database.from('articles').select('*')
     // return articles

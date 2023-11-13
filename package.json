@@ -64,6 +64,7 @@
     "luxon": "^3.4.3",
     "md5": "^2.3.0",
     "pg": "^8.11.3",
+    "phc-argon2": "^1.1.4",
     "proxy-addr": "^2.0.7",
     "reflect-metadata": "^0.1.13",
     "rss-parser": "^3.13.0",

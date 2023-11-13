@@ -8,13 +8,13 @@ export default class extends BaseSchema {
       table.increments('id').primary()
       table.string('title').notNullable()
       table.string('link')
-      table.dateTime('pub_date')
-      table.string('content').notNullable()
-      table.string('contentSnippet')
+      table.dateTime('pubDate')
+      table.text('content').notNullable()
+      table.text('contentSnippet')
       table.string('image')
       table.string('rssLink').notNullable()
       table.string('hash').notNullable()
-      table.specificType('categories', 'STRING[]')
+      table.specificType('categories', 'text[]')
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */

@@ -1,7 +1,6 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/naming-convention */
 import RssSevices from '@ioc:Services/Rss';
-const Event = use('Event')
 
 export default class RssesController {
 
@@ -55,6 +54,4 @@ export default class RssesController {
 
 }
 
-function use(arg0: string) {
-  throw new Error('Function not implemented.');
-}
+
