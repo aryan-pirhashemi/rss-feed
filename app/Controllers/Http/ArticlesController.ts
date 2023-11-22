@@ -11,8 +11,7 @@ export default class ArticlesController {
         RssSevices.updateArticles()
         console.log('updated')
       },
-      // Env.get('UPDATE_TIME', 5) * 60000
-      10000
+      Env.get('UPDATE_TIME', 5) * 60000
     )
 
     const articles = await Database.from('articles').select('*')

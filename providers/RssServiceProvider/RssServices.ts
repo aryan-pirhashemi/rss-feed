@@ -52,57 +52,40 @@ export default class RssService {
    * @param rssLink - The RSS link to fetch articles from.
    */
   private async handleArticles(rssLink: string): Promise<void> {
-    const articles = await Database.from('articles').select('*').where('rssLink', rssLink)
-    const parser = new Parser()
-    const updateArticles: any[] = (await parser.parseURL(rssLink)).items.sort(function(item1, item2) {
-
-
-      var d1 = new Date(item1.pubDate)
-      var d2 = new Date(item2.pubDate)
-      return d2.getTime() - d1.getTime()
-  })
-  articles.sort(function(item1, item2) {
-
-
-    var d1 = new Date(item1.pubDate)
-    var d2 = new Date(item2.pubDate)
-    return d2.getTime() - d1.getTime()
-})
-    console.log('updated')
-
-    if(articles.length===0){
-      for (let i = 0; i < updateArticles.length; i++) {
-        console.log("\n")
-        console.log(updateArticles[i].title)
-        console.log("\n")
-
-        this.insertArticle(updateArticles[i], rssLink)
-        
-      }
-    }else{
-      for (let i = 0; i < updateArticles.length; i++) {
-        console.log("\n")
-        console.log(updateArticles[i].title)
-        console.log("\n")
-
-        // Verify if the article already exists in the database using a hash comparison
-        if (await Hash.verify(articles[i].hash, updateArticles[i].link)) {
-          continue // Skip insertion if the article already exists
-        }
+    const articles = await Database.from('articles').select('*').where('rssLink', rssLink);
+    const parser = new Parser();
+    const updateArticles: any[] = (await parser.parseURL(rssLink)).items;
   
+    console.log('updated');
+  
+    if (articles.length === 0) {
+      for (let i = 0; i < updateArticles.length; i++) {
+        this.insertArticle(updateArticles[i], rssLink);
+      }
+    } else {
+      for (let i = 0; i < updateArticles.length; i++) {
+        let hashCheck = false;
+        for (let j = 0; j < articles.length; j++) {
+          // Verify if the article already exists in the database using a hash comparison
+          const articleExists = await Hash.verify(articles[j].hash, updateArticles[i].link);
+          if (articleExists) {
+            hashCheck = true;
+            break; // Exit the inner loop if the article already exists
+          }
+        }
+        if (hashCheck) {
+          continue; // Skip insertion if the article already exists
+        }
         // Insert the article into the 'articles' table in the database
-        this.insertArticle(updateArticles[i], rssLink)
+        this.insertArticle(updateArticles[i], rssLink);
       }
     }
-    
-
-    
   }
   private async insertArticle(updateArticle, rssLink){
     // console.log(updateArticle)
       const { title, link, pubDate, content, contentSnippet, image, categories } = updateArticle
       const hash = await Hash.make(link)
-      console.log(pubDate, categories)
+      console.log(title)
       // Insert the article into the 'articles' table in the database
       await Database.table('articles').insert({ title, link, pubDate, hash, content, contentSnippet, image, rssLink, categories })
   }

@@ -9,7 +9,7 @@ export default class extends BaseSchema {
       table.string('title').notNullable()
       table.string('link')
       table.dateTime('pubDate')
-      table.text('content').notNullable()
+      table.text('content')
       table.text('contentSnippet')
       table.string('image')
       table.string('rssLink').notNullable()
