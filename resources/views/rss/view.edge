@@ -1,19 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>My First Webpage</title>
-</head>
-<body>
-  <h1>Hello, World!</h1>
-  <p>This is a paragraph.</p>
-    @each(rss in rsses)
-        <h1>{{rss.title}}</h1>
-        <h1>{{rss.rssLink}}</h1>
-        <h1>{{rss.link}}</h1>
-        <h1>{{rss.description}}</h1>
-        <img src="{{rss.image}}">
-    @endeach
-  
-</body>
-</html>
+@layout('layouts/main')
+@set('title', 'RSSes View')
+@section('body')
+  <section class="py-5 text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">RSS List</h1>
+      </div>
+    </div>
+  </section>
+
+  <div class="album py-5 bg-light">
+    <div class="container">
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        @each(rss in rsses)
+        <div class="col">
+          <div class="card shadow-sm">
+            <img src="{{rss.image}}" alt="">
+            <div class="card-body">
+              <div  class="card-text">
+                <p >{{rss.title}}</p>
+              </div>
+              <a href="{{rss.rssLink}}" class="card-text">
+                <div >{{rss.rssLink}}</div>
+              </a>
+              <div>
+                <p >{{rss.description}}</p>
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                
+                <div class="btn-group">
+                  <a href="{{route('rss.edit', [rss.id])}}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                </div>
+                  
+                <small class="text-muted">9 mins</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        @endeach
+      </div>
+    </div>
+  </div>
+@end

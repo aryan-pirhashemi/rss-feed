@@ -1,18 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Create Articles</title>
-</head>
-<body>
+@layout('layouts/main')
+@set('title', 'RSSes Create')
+@section('body')
+
   <h1>Create Articles</h1>
     <form action="{{route('rss.create')}}" method="POST" >
         {{csrfField()}}
         <input type="text" name="rssLink" placeholder="rssLink">
 
+   
         {{--  <input type="file" name="image">  --}}
         {{--  <textarea name="content" cols="30" rows="10" placeholder="Article Content..."></textarea>  --}}
         <button type="submit">Create</button>
     </form>
-</body>
-</html>
+@end

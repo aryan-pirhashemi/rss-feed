@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/naming-convention */
 import RssSevices from '@ioc:Services/Rss';
+import validateLink from 'App/Validators/RssLinkValidator'
 
 export default class RssesController {
 
@@ -38,8 +39,10 @@ export default class RssesController {
    * @returns A redirection to the view page.
    */
   public async store( { response, request  } ) {
+    const payload = await request.validate(validateLink)
     // Extract the 'rssLink' from the request body
     const { rssLink } = request.body()
+
     if (await RssSevices.rExists(rssLink)) { 
         // Check if the RSS link already exists in the database
         console.log("Link already exists.")
@@ -49,6 +52,9 @@ export default class RssesController {
     RssSevices.pushRss(rssLink)
     return response.redirect().toRoute('rsses.view') 
     // Redirect to the view page after storing the RSS feed
+  }
+  public edit({view}){
+    return view.render('rss/edit')
   }
 
 

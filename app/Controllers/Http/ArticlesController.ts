@@ -13,8 +13,8 @@ export default class ArticlesController {
       },
       Env.get('UPDATE_TIME', 5) * 60000
     )
-
     const articles = await Database.from('articles').select('*')
+
     // return articles
     return view.render('news/view', { articles })
   }

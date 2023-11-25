@@ -1,12 +1,18 @@
 <header>
   <div class="navbar navbar-dark bg-dark shadow-sm">
     <div class="container">
-      <a href="/" class="navbar-brand d-flex align-items-center">
-        <strong>Happy News</strong>
+      <a href="{{route('news.view')}}" class="navbar-brand d-flex align-items-center">
+        <strong>RSS News</strong>
       </a>
-      <div  class="navbar-brand d-flex align-items-center">
-        All News
-      </div>
+      <a href="{{route('news.view')}}" class="navbar-brand d-flex align-items-right">
+        News
+      </a>
+      <a href="{{route('rsses.view')}}" class="navbar-brand d-flex align-items-right">
+        RSS List
+      </a>
+      {{--  <a href="{{route('login.view')}}" class="navbar-brand d-flex align-items-right">
+        Login
+      </a>  --}}
 
 
      
