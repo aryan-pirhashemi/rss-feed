@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/naming-convention */
+import Database from '@ioc:Adonis/Lucid/Database';
 import RssSevices from '@ioc:Services/Rss';
 import validateLink from 'App/Validators/RssLinkValidator'
 
@@ -53,8 +54,16 @@ export default class RssesController {
     return response.redirect().toRoute('rsses.view') 
     // Redirect to the view page after storing the RSS feed
   }
-  public edit({view}){
-    return view.render('rss/edit')
+  public async remove({response, params}){
+    const { id } =  params;
+    try{
+      await Database.from("articles").where("rssID", id).delete()
+      await Database.from("rsses").where("id", id).delete()
+    }catch(error){
+        console.log('error ==>  ', error)
+    }
+    await setInterval(()=>{}, 3000)
+    return response.redirect().toRoute('rsses.view') 
   }
 
 

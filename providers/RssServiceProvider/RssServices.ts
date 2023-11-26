@@ -52,7 +52,8 @@ export default class RssService {
    * @param rssLink - The RSS link to fetch articles from.
    */
   private async handleArticles(rssLink: string): Promise<void> {
-    const articles = await Database.from('articles').select('*').where('rssLink', rssLink);
+    const rss = await Database.from("rsses").where('rssLink', rssLink).first()
+    const articles = await Database.from('articles').select('*').where('rssID', rss.id);
     const parser = new Parser();
     const updateArticles: any[] = (await parser.parseURL(rssLink)).items;
   
@@ -60,7 +61,7 @@ export default class RssService {
   
     if (articles.length === 0) {
       for (let i = 0; i < updateArticles.length; i++) {
-        this.insertArticle(updateArticles[i], rssLink);
+        this.insertArticle(updateArticles[i], rss.id);
       }
     } else {
       for (let i = 0; i < updateArticles.length; i++) {
@@ -77,17 +78,17 @@ export default class RssService {
           continue; // Skip insertion if the article already exists
         }
         // Insert the article into the 'articles' table in the database
-        this.insertArticle(updateArticles[i], rssLink);
+        this.insertArticle(updateArticles[i], rss.id);
       }
     }
   }
-  private async insertArticle(updateArticle, rssLink){
+  private async insertArticle(updateArticle, rssID){
     // console.log(updateArticle)
       const { title, link, pubDate, content, contentSnippet, image, categories } = updateArticle
       const hash = await Hash.make(link)
       console.log(title)
       // Insert the article into the 'articles' table in the database
-      await Database.table('articles').insert({ title, link, pubDate, hash, content, contentSnippet, image, rssLink, categories })
+      await Database.table('articles').insert({ title, link, pubDate, hash, content, contentSnippet, image, rssID, categories })
   }
 
 
@@ -116,4 +117,5 @@ export default class RssService {
       await this.handleArticles(rss.rssLink)
     }
   }
+  
 }

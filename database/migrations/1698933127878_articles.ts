@@ -12,7 +12,7 @@ export default class extends BaseSchema {
       table.text('content')
       table.text('contentSnippet')
       table.string('image')
-      table.string('rssLink').notNullable()
+      table.string('rssID').notNullable()
       table.string('hash').notNullable()
       table.specificType('categories', 'text[]')
       /**

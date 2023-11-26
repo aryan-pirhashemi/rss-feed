@@ -29,16 +29,23 @@
               </div>
               <div class="d-flex justify-content-between align-items-center">
                 
-                <div class="btn-group">
-                  <a href="{{route('rss.edit', [rss.id])}}" class="btn btn-sm btn-outline-secondary">Edit</a>
-                </div>
+                <form method="post" class="btn-group" action="{{route('rss.remove', [rss.id])}}?_method=DELETE">
+                {{csrfField()}}
+                  <button type="submit"  class="btn btn-sm btn-danger">Remove</button>
+                </form>
                   
-                <small class="text-muted">9 mins</small>
               </div>
             </div>
           </div>
         </div>
         @endeach
+      </div>
+    </div>
+  </div>
+  <div class="album py-5 bg-light">
+    <div class="container">
+      <div class="btn-group">
+        <a href="{{route('rss.create')}}" class="btn btn-sm btn-success">Add</a>
       </div>
     </div>
   </div>

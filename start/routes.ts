@@ -7,7 +7,7 @@ Route.get('/', async ({ view }) => {
 Route.get('/rsses', 'RssesController.view').as('rsses.view')
 Route.get('/rsses/create', 'RssesController.create').as('rss.create')
 Route.post('/rsses/create', 'RssesController.store').as('rss.store')
-Route.get('/rsses/:id/edit', 'RssesController.edit').as('rss.edit')
+Route.delete('/rsses/:id', 'RssesController.remove').as('rss.remove')
 
 
 Route.get('/news', 'ArticlesController.viewAll').as('news.view')

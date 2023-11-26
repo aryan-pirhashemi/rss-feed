@@ -16,17 +16,16 @@
           <div class="card shadow-sm">
             <img src="{{article.image}}" alt="">
             <div class="card-body">
-              <a  class="card-text">
+              <a href="{{article.link}}" class="card-text">
                 <p >{{article.title}}</p>
               </a>
-              <a  class="card-text">
-                <div >{{article.id}}</div>
-              </a>
+              <div  class="card-body">
+                <p class="card-text">{{article.content}}</p>
+              </div>
               <div class="d-flex justify-content-between align-items-center">      
-                <div class="btn-group">
-                  <a  class="btn btn-sm btn-outline-secondary">Edit</a>
-                  </div>
-                <small class="text-muted">9 mins</small>
+                <div class="row card-text">
+                  <small class="text-muted">{{article.pubDate}}</small>
+                </div>
               </div>
             </div>
           </div>

@@ -2,14 +2,42 @@
 @set('title', 'RSSes Create')
 @section('body')
 
-  <h1>Create Articles</h1>
-    <form action="{{route('rss.create')}}" method="POST" >
-        {{csrfField()}}
-        <input type="text" name="rssLink" placeholder="rssLink">
+<section class="py-5 text-center container">
+  <div class="row py-lg-5">
+    <div class="col-lg-6 col-md-8 mx-auto">
+      <h1 class="d-flex justify-content-center">Add RSS</h1>
+    </div>
+  </div>
+</section>
+  <div class="album py-5 bg-light form-body">
+    <div class="container-md form-holder">
+      <div class="d-flex justify-content-center form-content">
+      
+        <div class="row">
+          <form action="{{route('rss.create')}}" method="POST" >
+              <div class="container text-center">
+                {{csrfField()}}
+                <div class="input-group">
+                  <span class="input-group-text">Rss Link:</span>
+                  <input aria-label="With textarea" type="text" class="form-control" placeholder="www.example.com/.rss" name="rssLink" placeholder="rssLink">
+                </div>
+                
 
-   
-        {{--  <input type="file" name="image">  --}}
-        {{--  <textarea name="content" cols="30" rows="10" placeholder="Article Content..."></textarea>  --}}
-        <button type="submit">Create</button>
-    </form>
+          
+                {{--  <input type="file" name="image">  --}}
+                {{--  <textarea name="content" cols="30" rows="10" placeholder="Article Content..."></textarea>  --}}
+                  <div class="row py-lg-5"> 
+                    <div class="col d-flex justify-content-center "><button type="submit" class="btn btn-success">Add</button></div>
+                  </div>
+              </div>
+          </form>
+        </div>
+    </div>
+      
+    
+
+  </div>
+
+
+</div>
 @end
