@@ -32,6 +32,21 @@
         </div>
         @endeach
       </div>
+
+
+<nav aria-label="Page navigation example" >
+  <ul class="pagination justify-content-center navbar navbar-dark bg-blue shadow-sm">
+        @each(anchor in articles.getUrlsForRange(1, articles.lastPage))
+    <li class="page-item">
+        <a href="{{ anchor.url }}" class="page-link">
+          {{ anchor.page }}
+        </a>
+    </li>
+        @endeach  
+    
+  </ul>
+</nav>
+
     </div>
   </div>
 @end
