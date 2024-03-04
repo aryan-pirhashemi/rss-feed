@@ -25,7 +25,7 @@ export default class RssServiceProvider {
   public register() {
     // Register your own bindings
     this.app.container.singleton('Services/Rss', () => {
-      return new (require('./RssServices').default)()
+      return new (require('App/Modules/Rss/Services').default)()
     })
   }
 

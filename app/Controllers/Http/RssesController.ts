@@ -51,7 +51,7 @@ export default class RssesController {
     if (await RssSevices.rExists(rssLink)) { 
         // Check if the RSS link already exists in the database
         console.log("Link already exists.")
-      return response.redirect().toRoute('rsses.view') 
+        return response.redirect().toRoute('rsses.view')
         // Redirect to the view page if the RSS link already exists
     }
     const rssId = await RssSevices.pushRss(rssLink)

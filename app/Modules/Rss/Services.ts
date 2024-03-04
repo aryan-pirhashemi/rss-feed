@@ -3,7 +3,7 @@
 /* eslint-disable prettier/prettier */
 import Database from '@ioc:Adonis/Lucid/Database';
 import Parser from 'rss-parser';
-import { Iupdatable } from '../../services/IUpdatable';
+import { Iupdatable } from '../../../services/IUpdatable';
 import Hash from '@ioc:Adonis/Core/Hash';
 
 

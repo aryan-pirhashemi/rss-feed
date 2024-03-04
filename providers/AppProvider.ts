@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import type { ApplicationContract } from '@ioc:Adonis/Core/Application'
 
 export default class AppProvider {

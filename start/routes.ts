@@ -1,34 +1,17 @@
 /* eslint-disable prettier/prettier */
 import Route from '@ioc:Adonis/Core/Route'
+import 'App/Modules/Rss/Routes'
+import 'App/Modules/index'
+
+Route.where('id', {
+  match: /^[0-9]+$/,
+  cast: (id) => Number(id),
+})
 
 Route.get('/', async ({ view }) => {
   return view.render('welcome')
 })
-Route.get('/rsses', 'RssesController.view').as('rsses.view')
-Route.get('/rsses/create', 'RssesController.create').as('rss.create')
-Route.post('/rsses/create', 'RssesController.store').as('rss.store')
-Route.delete('/rsses/:id', 'RssesController.remove').as('rss.remove')
 
-
-Route.get('/news', 'ArticlesController.viewAll').as('news.view')
-
-// Route.on('/news').render('news/view').as('news.view')
-
-Route.patch('/news/:id?', 'ArticlesController.viewArticle')
-  .where('id', {
-    match: /^[0-9]+$/,
-    cast: (id) => Number(id),
-  })
-  .as('news.update')
-
-Route.delete('/news/:id?', ({ params }) => {
-  return { params }
-})
-  .where('id', {
-    match: /^[0-9]+$/,
-    cast: (id) => Number(id),
-  })
-  .as('news.delete')
 
 
 // Route.on('/login').render('auth.login').as('auth.login')
