@@ -24,7 +24,8 @@
     "@adonisjs/view",
     "@adonisjs/shield",
     "@adonisjs/lucid",
-    "./providers/RssServiceProvider"
+    "./providers/RssServiceProvider",
+    "./providers/RouteProvider"
   ],
   "metaFiles": [
     {

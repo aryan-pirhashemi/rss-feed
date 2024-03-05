@@ -3,10 +3,7 @@ import Route from '@ioc:Adonis/Core/Route'
 import 'App/Modules/Rss/Routes'
 import 'App/Modules/index'
 
-Route.where('id', {
-  match: /^[0-9]+$/,
-  cast: (id) => Number(id),
-})
+Route.where('id', Route.matchers.matchID())
 
 Route.get('/', async ({ view }) => {
   return view.render('welcome')
