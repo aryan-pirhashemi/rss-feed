@@ -1,19 +1,17 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
 export default class extends BaseSchema {
-  protected tableName = 'articles'
+  protected tableName = 'rsses'
 
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('id').primary()
-      table.string('rss_id').notNullable().unsigned().references('id').inTable('rsses')
-      table.text('title').notNullable()
-      table.string('link').unique()
-      table.dateTime('pubDate')
-      table.text('content')
-      table.text('content_snippet')
+      table.increments('id')
+      table.string('title').notNullable()
+      table.string('rss_link').notNullable()
+      table.string('link')
+      table.text('description')
       table.string('image')
-      table.string('hash').notNullable().unique()
+
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */
