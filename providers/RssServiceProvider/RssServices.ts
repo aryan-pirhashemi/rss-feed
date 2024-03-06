@@ -72,9 +72,7 @@ export default class RssService implements Iupdatable {
       let articleArrayID = 0;
       
       for (let i = updateArticles.length - 1; i >= 0; i--) {
-        console.log("Goodbye ===>  " + i);
         if (await Hash.verify(topArticleDatabase.hash, updateArticles[i].link)) {
-          console.log("hey guys whats up");
           articleArrayID = i;
           break;
         }
