@@ -6,12 +6,15 @@ import Parser from 'rss-parser';
 import { Iupdatable } from '../../services/IUpdatable';
 import Hash from '@ioc:Adonis/Core/Hash';
 
+interface IFetcher{
+  parseURL()
+  parseString()
+}
 
 export default class RssService implements Iupdatable {
   private parser:Parser;
-  constructor() {
-    this.parser = new Parser();
-
+  constructor(parser: IFetcher) {
+    this.parser = parser;
   }
 
   /**
