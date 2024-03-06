@@ -68,20 +68,6 @@ export default class RssService implements Iupdatable {
     const parser = new Parser();
     const updateArticles = (await parser.parseURL(rssLink)).items;
 
-    if (articles.length === 0) {
-      // Batch insert all articles
-      const articleData = await Promise.all(updateArticles.map(async (article) => ({
-        title: article.title,
-        link: article.link,
-        pubDate: article.pubDate,
-        content: article.content,
-        contentSnippet: article.contentSnippet,
-        categories: article.categories,
-        hash: await Hash.make(article.link || ''),
-        rssID: rssID,
-      })));
-      await Database.table('articles').insert(articleData);
-    } else {
       const topArticleDatabase = articles[articles.length - 1];
       let articleArrayID = 0;
       
@@ -120,7 +106,6 @@ export default class RssService implements Iupdatable {
         })));
         await Database.table('articles').insert(newArticleData);
       }
-    }
   }
 
   /**
