@@ -44,18 +44,10 @@ export default class RssesController {
    * @returns A redirection to the view page.
    */
   public async store( { response, request  } ) {
-    const payload = await request.validate(validateLink)
     // Extract the 'rssLink' from the request body
     const { rssLink } = request.body()
 
-    if (await RssSevices.rExists(rssLink)) { 
-        // Check if the RSS link already exists in the database
-        console.log("Link already exists.")
-      return response.redirect().toRoute('rsses.view') 
-        // Redirect to the view page if the RSS link already exists
-    }
-    const rssId = await RssSevices.pushRss(rssLink)
-    RssSevices.handleArticles(rssLink, rssId)
+    console.log(await RssSevices.pushRss(rssLink))
     return response.redirect().toRoute('rsses.view') 
     // Redirect to the view page after storing the RSS feed
   }
