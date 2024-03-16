@@ -21,7 +21,6 @@ export default class Rss extends BaseModel {
   @column()
   public image: string
 
-
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

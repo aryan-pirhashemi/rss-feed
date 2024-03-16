@@ -1,12 +1,13 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import User from './User'
 
 export default class Profile extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
   @column()
-  public user_id: number
+  public userId: number
   @column()
   public biography: string
   @column()
@@ -16,19 +17,21 @@ export default class Profile extends BaseModel {
   @column()
   public company: string
   @column()
-  public twitter_url: string
+  public twitterUrl: string
   @column()
-  public facebook_url: string
+  public facebookUrl: string
   @column()
-  public linkedin_url: string
+  public linkedinUrl: string
   @column()
-  public instagram_url: string
+  public instagramUrl: string
   @column()
-  public youtube_url: string
+  public youtubeUrl: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+  @belongsTo(() => User)
+  public user: BelongsTo<typeof User>
 }

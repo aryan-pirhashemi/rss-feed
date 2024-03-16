@@ -1,7 +1,16 @@
 import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, beforeCreate, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import {
+  BaseModel,
+  BelongsTo,
+  ManyToMany,
+  beforeCreate,
+  belongsTo,
+  column,
+  manyToMany,
+} from '@ioc:Adonis/Lucid/Orm'
 import Rss from './Rss'
 import Hash from '@ioc:Adonis/Core/Hash'
+import Topic from './Topic'
 
 export default class Article extends BaseModel {
   @column({ isPrimary: true })
@@ -13,7 +22,7 @@ export default class Article extends BaseModel {
   @column()
   public link: string
 
-  @column()
+  @column.dateTime()
   public linkpubDate: DateTime
 
   @column()
@@ -26,7 +35,7 @@ export default class Article extends BaseModel {
   public image: string
 
   @column()
-  public rssId: string
+  public rssId: number
 
   @column()
   public hash: string
@@ -36,11 +45,15 @@ export default class Article extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
-
-  @belongsTo(() => Rss)
-  public rss: BelongsTo<typeof Rss>
   @beforeCreate()
   public static async hashRssLink(article: Article) {
     article.hash = await Hash.make(article.link)
   }
+  @belongsTo(() => Rss)
+  public rss: BelongsTo<typeof Rss>
+  @manyToMany(() => Topic, {
+    pivotTable: 'article_topics',
+    pivotColumns: ['sort_order'],
+  })
+  public Topic: ManyToMany<typeof Topic>
 }
