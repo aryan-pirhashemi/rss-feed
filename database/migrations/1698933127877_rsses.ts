@@ -7,7 +7,7 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       table.string('title').notNullable()
-      table.string('rssLink').notNullable()
+      table.string('rss_link').notNullable()
       table.string('link')
       table.text('description')
       table.string('image')

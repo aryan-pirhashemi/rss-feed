@@ -2,11 +2,15 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import Database from '@ioc:Adonis/Lucid/Database';
 import RssSevices from '@ioc:Services/Rss';
+import WorkerHandler from '../../../providers/WorkerHandlerProvider/WorkerHandler';
 import validateLink from 'App/Validators/RssLinkValidator'
 
 export default class RssesController {
-
+  private workerHandler: WorkerHandler = new WorkerHandler(RssSevices)
   
+  
+  
+
   /**
    * Imports the rss list from the database and renders the view with them.
    * @param ctx - The context object.
@@ -14,8 +18,8 @@ export default class RssesController {
    */
   public async view({ view }) {
     
-    
     const rsses = await RssSevices.importRss()
+    
     return view.render('rss/view', { rsses })
   }
 
@@ -40,17 +44,10 @@ export default class RssesController {
    * @returns A redirection to the view page.
    */
   public async store( { response, request  } ) {
-    const payload = await request.validate(validateLink)
     // Extract the 'rssLink' from the request body
     const { rssLink } = request.body()
 
-    if (await RssSevices.rExists(rssLink)) { 
-        // Check if the RSS link already exists in the database
-        console.log("Link already exists.")
-      return response.redirect().toRoute('rsses.view') 
-        // Redirect to the view page if the RSS link already exists
-    }
-    RssSevices.pushRss(rssLink)
+    console.log(await RssSevices.pushRss(rssLink))
     return response.redirect().toRoute('rsses.view') 
     // Redirect to the view page after storing the RSS feed
   }
@@ -62,7 +59,7 @@ export default class RssesController {
     }catch(error){
         console.log('error ==>  ', error)
     }
-    await setInterval(()=>{}, 3000)
+    await setTimeout(()=>{}, 10000)
     return response.redirect().toRoute('rsses.view') 
   }
 

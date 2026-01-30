@@ -6,15 +6,14 @@ export default class extends BaseSchema {
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
+      table.string('rss_id').notNullable().unsigned().references('id').inTable('rsses')
       table.text('title').notNullable()
-      table.string('link')
+      table.string('link').unique()
       table.dateTime('pubDate')
       table.text('content')
-      table.text('contentSnippet')
+      table.text('content_snippet')
       table.string('image')
-      table.string('rssID').notNullable()
-      table.string('hash').notNullable()
-      table.specificType('categories', 'text[]')
+      table.string('hash').notNullable().unique()
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */
